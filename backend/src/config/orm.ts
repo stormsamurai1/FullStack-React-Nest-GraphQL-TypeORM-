@@ -7,7 +7,7 @@ const options: TypeOrmModuleOptions = {
     database: 'data/project.db',
     logging: true,
     entities: [path.resolve(__dirname, '..', 'db', 'models', '*')],
-    migrations: [path.resolve(__dirname, '..', 'db', 'moigrations', '*')]
+    migrations: [path.resolve(__dirname, '..', 'db', 'migrations', '*')]
 }
 
 module.exports = options;

@@ -1,25 +1,30 @@
-import {MigrationInterface, QueryRunner, Table} from "typeorm";
-import { navajowhite } from "color-name";
+import {MigrationInterface, QueryRunner, Table, TableForeignKey} from "typeorm";
 
-export class createUsers1585767361215 implements MigrationInterface {
+export class createMessages1585767969114 implements MigrationInterface {
 
     private table = new Table({
-        name: 'users',
-        columns:[{
+         name: 'messages',
+         columns:[{
             name: 'id',
             type: 'integer',
             isPrimary: true,
             isGenerated: true,
             generationStrategy: 'increment'
-        },
-        {
-            name: 'email',
+         },
+         {
+             name: 'user_id',
+             type: 'integer',
+             isNullable: false,
+
+         },
+         {
+            name: 'content',
             type: 'varchar',
             length: '255',
-            isUnique: true,
+            isUnique: false,
             isNullable: false
-        },
-        {
+         },
+         {
             name: 'created_at',
             type: 'timestampz',
             isNullable: false,
@@ -31,6 +36,13 @@ export class createUsers1585767361215 implements MigrationInterface {
             isNullable: false,
             default: 'now()'
         }]
+    })
+
+    private userIdForeignKey = new TableForeignKey({
+        columnNames: ['users_id'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'users',
+        onDelete: 'cascade'
     })
 
     public async up(queryRunner: QueryRunner): Promise<any> {
